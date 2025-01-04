@@ -19,8 +19,8 @@ def main():
     createCSV()
     pairs = utils.loadStoreDepartmentPairs("longUniqueTimeSeries.csv")
     df = pd.read_csv("data/train.csv")
-    for i in tqdm(range(3)):
-        analyse(pairs[i], df)
+    for pair in tqdm(pairs):
+        analyse(pair, df)
 
 def createCSV():
     with open(csvSaveName, "w", newline="", encoding="utf-8") as file:
