@@ -19,7 +19,7 @@ def main():
     createCSV()
     pairs = utils.loadStoreDepartmentPairs("longUniqueTimeSeries.csv")
     df = pd.read_csv("data/train.csv")
-    for i in tqdm(range(5)):
+    for i in tqdm(range(3)):
         analyse(pairs[i], df)
 
 def createCSV():
@@ -41,7 +41,7 @@ def analyse(pair, df):
     ljung_box_test = acorr_ljungbox(residuals, lags=[ar], return_df=True)
     ljung_box_stat = ljung_box_test.iloc[0,0]
     ljung_box_value = ljung_box_test.iloc[0,1]
-    saveCSV (pair[0], pair[1], ma, ar, nDiff, shapiro_test_statistic, p_value, ljung_box_stat, ljung_box_value)
+    saveCSV (pair[0], pair[1], ma, ar, n, shapiro_test_statistic, p_value, ljung_box_stat, ljung_box_value)
 
 def saveCSV(storeId, departmentId, ma, ar, nDiff, shapiroTestStatistic, shapiroPValue, ljungStat, ljungPvalue):
     with open(csvSaveName, mode='a', newline='', encoding='utf-8') as file:
