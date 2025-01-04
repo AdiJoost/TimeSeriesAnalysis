@@ -1,10 +1,4 @@
 import pandas as pd
-import matplotlib.pyplot as plt
-from matplotlib.ticker import MaxNLocator
-from statsmodels.tsa.stattools import adfuller
-from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
-from statsmodels.tsa.arima.model import ARIMA
-from statsmodels.tsa.stattools import acf, pacf
 from scipy.stats import shapiro
 from statsmodels.stats.diagnostic import acorr_ljungbox
 import utils
