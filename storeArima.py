@@ -24,8 +24,8 @@ def createCSV():
 def analyse(pair, df):
     storeTrain, storeTest = utils.getStoreDF(pair[0], pair[1], df, 0)
     diff, n = utils.getStationaryValue(storeTrain)
-    ma = max(utils.getACF(diff, nlags=60, confidence=0.25))
-    ar = max(utils.getPACF(diff, nlags=60, confidence=0.25))
+    ma = max(utils.getACF(diff, nlags=52, confidence=0.25))
+    ar = max(utils.getPACF(diff, nlags=52, confidence=0.25))
     model = utils.getArimaFit(diff, ar=ar, nDiff=n, ma=ma)
     PreviousWeekly = storeTrain["Weekly_Sales"]
     lastDate = storeTrain["Date"].max()
