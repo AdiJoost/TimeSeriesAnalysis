@@ -7,12 +7,12 @@ from tqdm import tqdm
 import warnings
 warnings.filterwarnings("ignore")
 
-csvSaveName = "arimaStatistics.csv"
-failedCSVNames = "failedCSV.csv"
+csvSaveName = "arimaXStatistics.csv"
+failedCSVNames = "failedXCSV.csv"
 
 def main():
     createCSV()
-    pairs = utils.loadStoreDepartmentPairs("longUniqueTimeSeries.csv")
+    pairs = utils.loadStoreDepartmentPairs("significant.csv")
     df = pd.read_csv("data/train.csv")
     for pair in tqdm(pairs):
         try:
@@ -29,10 +29,10 @@ def createCSV():
         writer.writerow(["storeId", "departmentId"])
 
 def analyse(pair, df):
-    storeTrain, storeTest = utils.getStoreDF(pair[0], pair[1], df, 0)
+    storeTrain, storeTest = utils.getStoreDF(pair[0], pair[1], df, 12)
     diff, n = utils.getStationaryValue(storeTrain)
-    ma = max(utils.getACF(diff, nlags=52, confidence=0.3))
-    ar = max(utils.getPACF(diff, nlags=52, confidence=0.3))
+    ma = max(utils.getACF(diff, nlags=10, confidence=0.3))
+    ar = max(utils.getPACF(diff, nlags=10, confidence=0.3))
     model = utils.getArimaFit(diff, ar=ar, nDiff=n, ma=ma)
     residuals = model.resid
     shapiro_test_statistic, p_value = shapiro(residuals)
