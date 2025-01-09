@@ -3,6 +3,7 @@ import utils
 import numpy as np
 import csv
 from statsmodels.tsa.arima.model import ARIMA
+from tqdm import tqdm
 
 import warnings
 warnings.filterwarnings("ignore")
@@ -17,7 +18,7 @@ def main():
     createStoreCSV()
     results = pd.read_csv(RESULTS_CSV)
     df = pd.read_csv("data/train.csv")
-    for _, row in results.iterrows():
+    for _, row in tqdm(results.iterrows()):
         try:
             evaluate(df, row["storeId"], row["departmentId"], row["nDiff"], row["ar"], row["ma"])
         except Exception as E:
